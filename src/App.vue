@@ -1,17 +1,32 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <math-quiz v-if="selectedOperator" :operator="selectedOperator" @onBack="resetOperator"/>
+    <select-operator v-if="!selectedOperator" @changeOperator="changeOperator" />
+    <h1> {{selectedOperator}} </h1>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import SelectOperator from './components/OperatorSelector.vue';
+import MathQuiz from './components/MathQuiz.vue';
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    SelectOperator,
+    MathQuiz
+  },
+  data(){
+    return {
+      selectedOperator: null,
+    }
+  },
+  methods:{
+    changeOperator(operator){
+      this.selectedOperator = operator;
+    },
+    resetOperator(){
+      this.selectedOperator = null;
+    }
   }
 }
 </script>
@@ -24,5 +39,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  font-size: 24px;
 }
 </style>
